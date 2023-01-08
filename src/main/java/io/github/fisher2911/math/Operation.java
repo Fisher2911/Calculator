@@ -16,7 +16,6 @@ public abstract class Operation implements Function<double[], double[]> {
             final double a = doubles[0];
             final double b = doubles[1];
             result[0] = a + b;
-//            System.out.println("Adding: " + a + " + " + b + " = " + result[0]);
             return result;
         }
     });
@@ -29,7 +28,6 @@ public abstract class Operation implements Function<double[], double[]> {
             final double a = doubles[0];
             final double b = doubles[1];
             result[0] = a - b;
-//            System.out.println("Subtracting: " + a + " - " + b + " = " + result[0]);
             return result;
         }
     });
@@ -42,7 +40,6 @@ public abstract class Operation implements Function<double[], double[]> {
             final double a = doubles[0];
             final double b = doubles[1];
             result[0] = a * b;
-//            System.out.println("Multiplying: " + a + " * " + b + " = " + result[0]);
             return result;
         }
     });
@@ -55,7 +52,6 @@ public abstract class Operation implements Function<double[], double[]> {
             final double a = doubles[0];
             final double b = doubles[1];
             result[0] = a / b;
-//            System.out.println("Dividing: " + a + " / " + b + " = " + result[0]);
             return result;
         }
     });
@@ -68,7 +64,6 @@ public abstract class Operation implements Function<double[], double[]> {
             final double a = doubles[0];
             final double b = doubles[1];
             result[0] = Math.pow(a, b);
-//            System.out.println("Powering: " + a + " ^ " + b + " = " + result[0]);
             return result;
         }
     });

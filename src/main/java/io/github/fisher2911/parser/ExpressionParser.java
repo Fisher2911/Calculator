@@ -13,7 +13,6 @@ public class ExpressionParser {
     public static Expression parse(String expression, Collection<String> variables) {
         final ArrayDeque<Token> tokenStack = new ArrayDeque<>();
         final StringBuilder builder = new StringBuilder();
-        System.out.println(expression);
         boolean unaryOperator = false;
         for (char c : expression.replaceAll("\\s+", "").toCharArray()) {
             final String charAsString = String.valueOf(c);
@@ -66,80 +65,6 @@ public class ExpressionParser {
         if (!builder.isEmpty()) {
             tokenStack.add(new Token(TokenType.fromString(builder.toString(), variables), builder.toString()));
         }
-        final StringBuilder parsed = new StringBuilder();
-        final ArrayDeque<Token> finalStack = new ArrayDeque<>(tokenStack);
-        while (!tokenStack.isEmpty()) {
-            final Token token = tokenStack.pop();
-            parsed.append(token.value()).append(" ");
-        }
-        System.out.println("Parsed: " + parsed);
-        return new Expression(expression, finalStack, variables);
-    }
-
-//    public static Expression parse(String expression, Collection<String> variables) {
-//        final char[] chars = expression.replaceAll("\\s+", "").toCharArray();
-//        final ArrayDeque<Token> stack = new ArrayDeque<>();
-//        final ArrayDeque<Character> characters = new ArrayDeque<>();
-//        System.out.println(expression);
-//        for (final char c : chars) {
-//            final String charAsString = String.valueOf(c);
-//            final StringBuilder builder = new StringBuilder();
-//            while (!characters.isEmpty()) {
-//                final char character = characters.pollFirst();
-//                builder.append(character);
-//            }
-//            final String builderString = builder.toString();
-//            final TokenType charType = TokenType.fromString(charAsString, variables);
-//            final TokenType type = TokenType.fromString(builderString, variables);
-//            if (charType.isSingleCharacter()) {
-//                if (type != TokenType.UNKNOWN) {
-//                    stack.add(new Token(type, builderString));
-//                }
-//                stack.add(new Token(charType, charAsString));
-//                continue;
-//            }
-//            final TokenType previousType = stack.isEmpty() ? null : stack.peekLast().type();
-//            final boolean isUnaryOperator = previousType == null || previousType.createsUnaryOperator() && builder.isEmpty() && charType == TokenType.OPERATOR;
-//            System.out.println("isUnaryOperator: " + isUnaryOperator + " " + previousType + " " + c);
-//            if (!builder.isEmpty() && (!isUnaryOperator || type != charType) && type != TokenType.UNKNOWN && previousType != type /* && type != charType*/ /*&& type != TokenType.UNKNOWN && !isPreviousOperator*/) {
-//                System.out.println("Adding: " + builderString);
-//                stack.add(new Token(type, builderString));
-//            } else {
-//                for (char character : builderString.toCharArray()) {
-//                    characters.add(character);
-//                }
-//            }
-//            characters.add(c);
-//        }
-//        if (characters.size() > 0) {
-//            final StringBuilder builder = new StringBuilder();
-//            while (!characters.isEmpty()) {
-//                final char character = characters.pollFirst();
-//                builder.append(character);
-//            }
-//            final String builderString = builder.toString();
-//            final TokenType type = TokenType.fromString(builderString, variables);
-//            stack.add(new Token(type, builderString));
-//        }
-//        final StringBuilder parsed = new StringBuilder();
-//        final ArrayDeque<Token> finalStack = new ArrayDeque<>(stack);
-//        System.out.println(stack);
-//        while (!stack.isEmpty()) {
-//            final Token token = stack.pop();
-//            parsed.append(token.value()).append(" ");
-//        }
-//        System.out.println("Parsed: " + parsed);
-//        return new Expression(expression, finalStack, variables);
-//    }
-
-    private static boolean isSameType(TokenType first, TokenType second, char secondValue) {
-        if (first == TokenType.OPERATOR && second == TokenType.OPERATOR && secondValue == '-') {
-            return false;
-        }
-        return first == second;
-//        if (first == TokenType.OPERATOR && firstValue.equals(Operation.SUBTRACT.symbol()) && second == TokenType.NUMBER) {
-//            return true;
-//        }
-//        return false;
+        return new Expression(expression, tokenStack, variables);
     }
 }
